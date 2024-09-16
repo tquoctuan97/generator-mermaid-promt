@@ -1,9 +1,12 @@
+import { BrowserRouter } from 'react-router-dom'
 import MermaidPromptGenerator from './MermaidPromptGenerator'
 
 function App() {
 
   return (
-    <MermaidPromptGenerator />
+    <BrowserRouter >
+      <MermaidPromptGenerator />
+    </BrowserRouter>
   )
 }
 

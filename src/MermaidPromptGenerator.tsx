@@ -9,7 +9,8 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { ClipboardCopy } from "lucide-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useSearchParams } from 'react-router-dom';
 
 const diagramTypes = [
   "flowchart",
@@ -27,12 +28,18 @@ const diagramTypes = [
 const detailLevels = ["basic", "intermediate", "detailed"];
 
 const MermaidPromptGenerator = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [formData, setFormData] = useState({
-    diagramType: "sequence diagram",
-    selection: "",
-    detailLevel: "intermediate",
-    notes: "",
+    diagramType: searchParams.get('diagramType') || "sequence diagram",
+    selection: searchParams.get('selection') || "",
+    detailLevel: searchParams.get('detailLevel') || "intermediate",
+    notes: searchParams.get('notes') || "",
   });
+
+  useEffect(() => {
+    // Update URL when form data changes
+    setSearchParams(formData);
+  }, [formData, setSearchParams]);
 
   const handleInputChange = (
     e: React.ChangeEvent<
